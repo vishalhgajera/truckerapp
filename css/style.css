@@ -1,0 +1,14 @@
+/* Empty. Add your own CSS if you like */
+.auth-outer  .home-bg {
+    background: rgba(0, 0, 0, 0) url("../img/truck-bg.jpg") no-repeat scroll center center / cover ;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.auth-outer .pane,.auth-outer  .view { background: none;}
+.tripform  .item-input.has-errors{ border-bottom-color: #FF4C4C;}
+.walkthrough-content { position: absolute; left: 0; top: 50%; transform: translateY(-50%);width: 100%; text-align: center;}
+.login-block {left: 0; top: 50%; position: absolute;transform: translateY(-50%);}

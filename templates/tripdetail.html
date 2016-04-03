@@ -1,0 +1,75 @@
+<ion-view class="slider-view">
+    <ion-nav-title> <span>Trip Detail</span> </ion-nav-title>
+    <ion-content class="has-footer">
+       
+        <div class="row margin-bottom whitebg">
+            <div class="col col-50"><strong>From</strong></div>
+            <div class="col col-50"><span ng-if="trip.Slocation" ng-bind="trip.Slocation + ','"></span><span ng-bind="trip.Scity + ','"></span><span ng-bind="trip.Sstate"></span></div>
+        </div>
+        <div class="row margin-bottom whitebg">
+            <div class="col col-50"><strong>To</strong></div>
+            <div class="col col-50">
+                <span ng-if="trip.Elocation" ng-bind="trip.Elocation + ','"></span><span ng-bind="trip.Ecity + ','"></span><span ng-bind="trip.Estate"></span></div>
+        </div>
+        <div class="row margin-bottom whitebg" ng-show="trip.Vtype">
+            <div class="col col-50"><strong>Type</strong></div>
+            <div class="col col-50" ng-bind="trip.Vtype"></div>
+        </div>
+        <div class="row margin-bottom whitebg" ng-show="trip.Vcapacity">
+            <div class="col col-50"><strong>Capacity</strong></div>
+            <div class="col col-50" ng-bind="trip.Vcapacity"></div>
+        </div>
+        
+        <div class="row margin-bottom whitebg" ng-show="trip.material">
+            <div class="col col-50"><strong>Material</strong></div>
+            <div class="col col-50" ng-bind="trip.material"></div>
+        </div>
+		
+		<div class="row margin-bottom whitebg" ng-show="trip.Vqty">
+            <div class="col col-50"><strong>Number of Vehicle</strong></div>
+            <div class="col col-50" ng-bind="trip.Vqty"></div>
+        </div>
+        <div class="row margin-bottom whitebg" ng-show="trip.reportingDate" >
+            <div class="col col-50"><strong>Reporting Date</strong></div>
+            <div class="col col-50" ng-bind="trip.reportingDate"></div>
+        </div>
+        <div class="row margin-bottom whitebg" ng-show="trip.luCharge">
+            <div class="col col-50"><strong>Loading/unloading charge</strong></div>
+            <div class="col col-50" ng-bind="trip.luCharge"></div>
+        </div>
+		
+        <div class="row margin-bottom whitebg" ng-show="trip.insurance">
+            <div class="col col-50"><strong>Insurance </strong></div>
+            <div class="col col-50" ng-bind="trip.insurance"></div>
+        </div>
+        <div class="row margin-bottom whitebg" ng-show="trip.Stax">
+            <div class="col col-50"><strong>Service Tax</strong></div>
+            <div class="col col-50" ng-bind="trip.Stax"></div>
+        </div>
+        <div class="row margin-bottom whitebg" ng-show="trip.PayCondition">
+            <div class="col col-50"><strong>Payment Condition</strong></div>
+            <div class="col col-50" ng-bind="trip.PayCondition"></div>
+        </div>
+        <div class="row margin-bottom whitebg" ng-show="trip.Acommission">
+            <div class="col col-50"><strong>Agent Commission</strong></div>
+            <div class="col col-50" ng-bind="trip.Acommission"></div>
+        </div>		
+		<div class="card" ng-if="totalBids">
+		<div class="item item-divider">
+			Your Bids
+		  </div>
+		  <div class="item " ng-repeat="bids in totalBids">
+		  <div class="row">
+			  <div class="col col-75"><h4>Bhargav - 9033761805</h4><p>{{bids.price}}</p></div>
+				<div class="col"><button class="button icon ion-checkmark-circled button-small"></button></div>
+			</div>
+		  </div>
+		</div>
+		
+    </ion-content>
+    <div class="bar bar-footer item-input-inset bar-energized">
+  <h4 class="bidprice" ng-show="trip.price && editPrice == false ">Your bid amount is : <span  ng-bind="trip.price && editPrice == false"></span><a href="javascript:void(0)"  ng-show="trip.price" ng-click="editPrice = true" class="ion-android-create"></a></h4>
+      <label ng-show="!trip.price" class="item-input-wrapper"><input type="number" placeholder="Bid Your Price" ng-model="bidAmount"></label>
+    <button ng-show="!trip.price" class="button button-positive button-small" ng-click="bidsubmit()">Bid</button>
+    </div>
+</ion-view>
