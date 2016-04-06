@@ -218,6 +218,11 @@ angular.module('starter.controllers', [])
      }) 
     .then(function(response) {
       console.log(response);
+         if (response.data.success == "true")
+         {
+             $scope.bidprice = Number(response.data.results[0].price);
+         }
+             
     });
     
     $scope.bidsubmit = function () {

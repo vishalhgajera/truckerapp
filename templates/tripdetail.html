@@ -68,8 +68,8 @@
 		
     </ion-content>
     <div class="bar bar-footer item-input-inset bar-energized">
-  <h4 class="bidprice" ng-show="trip.price && editPrice == false ">Your bid amount is : <span  ng-bind="trip.price && editPrice == false"></span><a href="javascript:void(0)"  ng-show="trip.price" ng-click="editPrice = true" class="ion-android-create"></a></h4>
-      <label ng-show="!trip.price" class="item-input-wrapper"><input type="number" placeholder="Bid Your Price" ng-model="bidAmount"></label>
-    <button ng-show="!trip.price" class="button button-positive button-small" ng-click="bidsubmit()">Bid</button>
+  <h4 class="bidprice" ng-show="bidprice && editPrice == false ">Your bid amount is : <span  ng-bind="bidprice"></span><a href="javascript:void(0)"  ng-show="bidprice" ng-click="editPrice = true" class="ion-android-create"></a></h4>
+      <label ng-show="!bidprice || editPrice == true" class="item-input-wrapper"><input type="number" placeholder="Bid Your Price" ng-model="bidAmount"></label>
+    <button ng-show="!bidprice || editPrice == true" class="button button-positive button-small" ng-click="bidsubmit()">Bid</button>
     </div>
 </ion-view>
