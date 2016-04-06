@@ -170,6 +170,7 @@ angular.module('starter.controllers', [])
     $scope.currentobjId = '';
     $scope.trip = $filter('filter')($rootScope.trips, {ID: $state.params.Id})[0];
     $scope.editPrice = false;
+    $scope.bidId = '';
 
    /* bidQuery.find({
         success: function (results) {
@@ -221,6 +222,7 @@ angular.module('starter.controllers', [])
          if (response.data.success == "true")
          {
              $scope.bidprice = Number(response.data.results[0].price);
+             $scope.bidId = response.data.results[0].ID;
          }
              
     });
@@ -229,6 +231,7 @@ angular.module('starter.controllers', [])
         $http.post("http://dev.dharmajivancottons.com/trucker/trip/addbid",{
           tripid:$scope.trip,
           userid: $rootScope.user.cliendID,
+          bidid:$scope.bidId,
           price:'5000',
          })
           .then(function(response) {
