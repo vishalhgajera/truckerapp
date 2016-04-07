@@ -1,6 +1,7 @@
 angular.module('starter.controllers', [])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout,$rootScope,$state) {
+    root = $rootScope;
     $rootScope.username = $rootScope.user.username;
     $rootScope.usertype = $rootScope.user.type;
     $scope.logout = function(){
@@ -124,13 +125,14 @@ angular.module('starter.controllers', [])
 		$scope.tripField.Estate =  States[$scope.tripField.Estate];
 		$scope.tripField.Sstate =  States[$scope.tripField.Sstate];
         $http.post("http://dev.dharmajivancottons.com/trucker/trip/add", $scope.tripField).then(function(result){
-           console.log(result.data.results);
-             if (result.data.results.length)
-            {
-                $rootScope.trips  = result.data.results;
-            }
+             console.log(result);
+            $scope.modal.remove();
+             if (result.data.success == true)
+             {
+                $rootScope.trips.push($scope.tripField);
+             }
             
-            $scope.$broadcast('scroll.refreshComplete');
+           
         });
         
         
@@ -219,7 +221,7 @@ angular.module('starter.controllers', [])
      }) 
     .then(function(response) {
       console.log(response);
-         if (response.data.success == "true")
+         if (response.data.success == "true" && response.data.results.length)
          {
              $scope.bidprice = Number(response.data.results[0].price);
              $scope.bidId = response.data.results[0].ID;
@@ -232,10 +234,12 @@ angular.module('starter.controllers', [])
           tripid:$scope.trip,
           userid: $rootScope.user.cliendID,
           bidid:$scope.bidId,
-          price:'5000',
+          price:$scope.bidAmount,
          })
           .then(function(response) {
               $scope.myWelcome = response.data;
+            $scope.bidprice = $scope.bidAmount;
+            $scope.editPrice = false;
           });
     }
     

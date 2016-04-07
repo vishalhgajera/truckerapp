@@ -1,8 +1,9 @@
 <ion-view class="slider-view">
     <ion-nav-title> <span>Trip Lists</span> </ion-nav-title>
-    <ion-nav-buttons side="right">
-        <a class="button button-icon button-clear ion-android-add" ng-click="openModal()"> </a>
+    <ion-nav-buttons side="right" >
+        <a ng-if="usertype == 'agent'" class="button button-icon button-clear ion-android-add" ng-click="openModal()"> </a>
     </ion-nav-buttons>
+ 
     <ion-content>
         <ion-refresher
     pulling-text="Pull to refresh..."
