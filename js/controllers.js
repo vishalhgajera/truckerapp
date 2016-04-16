@@ -69,19 +69,22 @@ angular.module('starter.controllers', [])
     
    
     $scope.doRefresh = function () {
-         $rootScope.trips = [];
+        
         
         $http.post("http://dev.dharmajivancottons.com/trucker/trip/triplist",{userid:$rootScope.user.cliendID}).then(function(result){
            console.log(result.data.results);
+             $rootScope.trips = [];
              if (result.data.results.length)
             {
                 $rootScope.trips  = result.data.results;
             }
             
             $scope.$broadcast('scroll.refreshComplete');
+             $ionicLoading.hide();
         });
     }
 
+     $ionicLoading.show();
     $scope.doRefresh();
     $scope.states = States;
     $scope.cities = Cities;
@@ -173,46 +176,7 @@ angular.module('starter.controllers', [])
     $scope.trip = $filter('filter')($rootScope.trips, {ID: $state.params.Id})[0];
     $scope.editPrice = false;
     $scope.bidId = '';
-
-   /* bidQuery.find({
-        success: function (results) {
-            $scope.biddata = true;
-			console.log("my Result");
-            console.log(results);
-            if (results.length > 0) {
-                
-				
-				$scope.bidprice = results[0].attributes.price
-				$scope.currentobjId = results[0].id;
-                console.log($scope.currentobjId);
-				var tempUser = []
-				if ($scope.usertype == 'agent')
-				{
-					$scope.totalBids = results
-					
-					angular.forEach(results,function(el,index){
-						console.log(el.attributes.userid);
-						tempUser.push(el.attributes.userid);
-					});
-					var query = new Parse.Query(Parse.User);
-					query.equalTo("objectId",el.attributes.userid );
-					query.find({
-					  success: function(women) {
-						console.log(women);
-					  }
-					});
-				}
-            }
-        },
-        error: function (error) {
-            $scope.biddata = true;
-            $ionicPopup.alert({
-                title: 'Bid retriving failer',
-                template: 'Failed to create new object, with error code:  ' + error.message,
-            });
-        }
-    });*/
-
+    $scope.allBids;
     
     
      $http.post("http://dev.dharmajivancottons.com/trucker/trip/getbid",{
@@ -220,13 +184,21 @@ angular.module('starter.controllers', [])
       tripID: $scope.trip.ID
      }) 
     .then(function(response) {
+         $scope.allBids = []
       console.log(response);
-         if (response.data.success == "true" && response.data.results.length)
+         if (response.data.results.length)
          {
-             $scope.bidprice = Number(response.data.results[0].price);
-             $scope.bidId = response.data.results[0].ID;
-         }
-             
+             if (scope.usertype != "agent")
+             {   
+                $scope.bidprice = Number(response.data.results[0].price);
+                $scope.bidId = response.data.results[0].ID;
+             }
+             else
+             {
+                 $scope.allBids = response.data.results;
+                  console.log($scope.allBids);
+             }
+         }   
     });
     
     $scope.bidsubmit = function () {
@@ -242,68 +214,6 @@ angular.module('starter.controllers', [])
             $scope.editPrice = false;
           });
     }
-    
-    
-   /* $scope.bidsubmit = function () {
-		console.log($scope.bidAmount);
-        if($scope.bidAmount == "") {
-            $ionicPopup.alert({
-                title: 'Wrong Bid Amount',
-                template: 'Please enter proper bid Amount',
-            });
-            return false;
-            
-        }
-        if (!$scope.edit)
-		{
-			newbid = new bid();
-			newbid.setACL(new Parse.ACL(Parse.User.current()));
-			newbid.set({
-				tripid: $scope.trip,
-				userid: $rootScope.user,
-				price: $scope.bidAmount
-			});
-			
-			newbid.save(null, {
-				success: function (truck) {
-					$ionicPopup.alert({
-						title: 'Bid submited',
-						template: 'Bid has been submited',
-					});
-					$scope.bidprice = $scope.bidAmount;
-				},
-				error: function (truck, error) {
-					$ionicPopup.alert({
-						title: 'Bid submited failer',
-						template: 'Failed to create new object, with error code:  ' + error.message,
-					});
-				}
-			});
-	    }
-        else {
-            bidQuery.get($scope.currentobjId, {
-              success: function(truck) {
-                  truck.set({ price: $scope.bidAmount})
-                  truck.save();
-                  $scope.biddata = true;
-                  $scope.bidprice = $scope.bidAmount;
-                    $ionicPopup.alert({
-                        title: 'Bid submited',
-                        template: 'Bid has been updated',
-                    });
-                // The object was retrieved successfully.
-              },
-              error: function(object, error) {
-                 $ionicPopup.alert({
-                    title: 'Bid submited failer',
-                    template: 'Failed to create new object, with error code:  ' + error.message,
-                });
-              }
-            });
-        }
-        console.log($rootScope.user);
-        console.log($scope.trip);
-    }*/
 });
 
 
