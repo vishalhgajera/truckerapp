@@ -55,7 +55,10 @@
             <div class="col col-50"><strong>Agent Commission</strong></div>
             <div class="col col-50" ng-bind="trip.Acommission"></div>
         </div>
-        <div class="card" ng-if="usertype == 'agent' && allBids.length">
+        <div ng-if="usertype == 'agent'">
+                    
+       
+        <div class="card" ng-if="allBids.length">
             <div class="item bg-assertive">
                 Bider List
             </div>
@@ -77,13 +80,13 @@
                 Sorry no any biding for this Trip yet :(
             </div>
         </div>
-
+ </div>
     </ion-content>
     <div class="bar bar-footer item-input-inset bar-energized" ng-if="usertype != 'agent'">
         <h4 class="bidprice" ng-show="bidprice && editPrice == false ">Your bid amount is : <span  ng-bind="bidprice"></span><a href="javascript:void(0)"  ng-show="bidprice" ng-click="editPrice = true" class="ion-android-create"></a></h4>
         <label ng-show="!bidprice || editPrice == true" class="item-input-wrapper">
             <input type="number" placeholder="Bid Your Price" ng-model="bidAmount">
         </label>
-        <button ng-show="!bidprice || editPrice == true" class="button button-positive button-small" ng-click="bidsubmit()">Bid</button>
+        <button ng-show="!bidprice || editPrice == true" class="button button-positive button-small" ng-click="bidsubmit(bidAmount)">Bid</button>
     </div>
 </ion-view>

@@ -134,14 +134,21 @@ angular.module('starter.controllers', [])
              {
                 $rootScope.trips.push($scope.tripField);
              }
-            
-           
         });
-        
-        
     }
     
     
+    $scope.deleteTrip = function(tripID,index){ 	
+         $http.post("http://dev.dharmajivancottons.com/trucker/trip/tripdelete",{
+          userid:$rootScope.user.cliendID,
+          tripID: tripID
+         }) .then(function(response) {
+            if (response.data.success == true)
+            {
+                $scope.trips.splice(index,1);
+            }
+          });
+    }
     
     $scope.openDatePicker = function() {
         $scope.tmp = {};
@@ -164,6 +171,36 @@ angular.module('starter.controllers', [])
       }
     
 })
+
+.controller('archivetripCtrl', function ($scope, $state, $ionicLoading, $rootScope, $ionicModal, $ionicPopup, $ionicScrollDelegate,$http,$filter) {
+    scope = $scope;
+    root = $rootScope;
+    http = $http;
+    $scope.tripField = {}
+    $scope.tripField.userid = $rootScope.user.cliendID;
+    
+    $scope.doRefresh = function () {
+        $http.post("http://dev.dharmajivancottons.com/trucker/trip/getarchive",{userid:$rootScope.user.cliendID}).then(function(result){
+           console.log(result.data.results);
+            $rootScope.trips = [];
+            if (result.data.results.length)
+            {
+                $rootScope.trips  = result.data.results;
+            }
+            
+            $scope.$broadcast('scroll.refreshComplete');
+             $ionicLoading.hide();
+        });
+    }
+    
+    $ionicLoading.show();
+    $scope.doRefresh();
+    $scope.states = States;
+    $scope.cities = Cities;
+})
+
+
+
 .controller('tripdetailCtrl', function ($scope, $state, $ionicLoading, $rootScope, $ionicModal, $filter, $ionicPopup,$http) {
     scope = $scope;
     root = $rootScope;
@@ -171,7 +208,6 @@ angular.module('starter.controllers', [])
     $scope.bidprice = null;
     $scope.biddata = false;
     $scope.edit = false;
-    $scope.bidAmount = '';
     $scope.currentobjId = '';
     $scope.trip = $filter('filter')($rootScope.trips, {ID: $state.params.Id})[0];
     $scope.editPrice = false;
@@ -201,15 +237,17 @@ angular.module('starter.controllers', [])
          }   
     });
     
-    $scope.bidsubmit = function () {
+    $scope.bidsubmit = function (bidAmount) {
+        console.log(bidAmount);
+        $scope.bidAmount = bidAmount;
         $http.post("http://dev.dharmajivancottons.com/trucker/trip/addbid",{
-          tripid:$scope.trip,
+          tripid:$scope.trip.ID,
           userid: $rootScope.user.cliendID,
           bidid:$scope.bidId,
-          price:$scope.bidAmount,
+          price:bidAmount,
          })
           .then(function(response) {
-              $scope.myWelcome = response.data;
+            console.log(response);
             $scope.bidprice = $scope.bidAmount;
             $scope.editPrice = false;
           });

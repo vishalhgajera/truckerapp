@@ -62,6 +62,14 @@ angular.module('starter', ['ionic', 'starter.controllers','ui.bootstrap.datetime
                 controller: "tripCtrl"
             }
         }
+    }).state("app.archivetrip", {
+        url: "/archivetrip",
+        views: {
+            menuContent: {
+                templateUrl: "templates/archivetriplist.html",
+                controller: "archivetripCtrl"
+            }
+        }
     }).state("app.tripdetail", {
         url: "/trip/:Id",
         views: {
