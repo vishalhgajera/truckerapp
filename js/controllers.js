@@ -252,6 +252,17 @@ angular.module('starter.controllers', [])
             $scope.editPrice = false;
           });
     }
+    
+    $scope.selectBider = function(bidder){
+         $http.post("http://dev.dharmajivancottons.com/trucker/trip/makedeal",{
+          bidder:bidder,
+          bidowner:$rootScope.user.cliendID,
+          tripID:$scope.trip.ID,
+         })
+          .then(function(response) {
+            console.log(response);
+          });
+    }
 });
 
 

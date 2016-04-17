@@ -64,14 +64,17 @@
             </div>
              <div class="item">
                 <div class="row" >
-                    <div class="col"><strong>Name</strong></div>
-                    <div class="col"><strong>Amount</strong></div>
+                    <div class="col col-33"><strong>Name</strong></div>
+                    <div class="col col-33"><strong>Amount</strong></div>
+                    <div class="col col-33"><strong>Selected</strong></div>
+                    
                 </div>
             </div>
             <div class="item" ng-repeat="bid in allBids | orderBy:'-price'">
                 <div class="row" >
                     <div class="col">{{bid.username}}</div>
                     <div class="col">{{bid.price | currency:"₹"}}</div>
+                    <div class="col col-33"><a ng-click="selectBider(bid.userid)" class="button   icon ion-android-checkbox-outline-blank"></a></div>
                 </div>
             </div>
         </div>
