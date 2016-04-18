@@ -172,6 +172,52 @@ angular.module('starter.controllers', [])
     
 })
 
+
+.controller('searchtripCtrl', function ($scope, $state, $ionicLoading, $rootScope, $ionicModal, $ionicPopup, $ionicScrollDelegate,$http,$filter) {
+    scope = $scope;
+    root = $rootScope;
+    http = $http;
+    $scope.tripField = {Scity:'',Sstate:'',Slocation:'',Ecity:'',Estate:'',Elocation:''}
+
+    
+   
+   
+   
+    $scope.states = States;
+    $scope.cities = Cities;
+
+    
+
+    
+    
+    $scope.searchTrip = function (form) {
+        console.log(form)
+        if (!form.$valid) {
+            return false;
+        }		
+		console.log($scope.tripField);
+		$scope.tripField.Estate =  States[$scope.tripField.Estate];
+		$scope.tripField.Sstate =  States[$scope.tripField.Sstate];
+        
+         $http.post("http://dev.dharmajivancottons.com/trucker/trip/searchtrip",{
+          searchtype:'both',
+          Sstate:$scope.tripField.Sstate,
+          Scity:$scope.tripField.Scity,
+          Slocation:$scope.tripField.Slocation,
+          Estate:$scope.tripField.Estate,
+          Ecity:$scope.tripField.Ecity,
+          Elocation:$scope.tripField.Elocation
+         }) .then(function(response) {
+            console.log(response);
+      });
+        
+        
+    }
+    
+    
+    
+})
+
 .controller('archivetripCtrl', function ($scope, $state, $ionicLoading, $rootScope, $ionicModal, $ionicPopup, $ionicScrollDelegate,$http,$filter) {
     scope = $scope;
     root = $rootScope;

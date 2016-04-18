@@ -74,8 +74,8 @@
                 <div class="row" >
                     <div class="col">{{bid.username}}</div>
                     <div class="col">{{bid.price | currency:"₹"}}</div>
-                    <div class="col col-33" ng-if="bid.confirm != bid.userid"><a ng-click="selectBider(bid.userid)" class="button icon ion-android-checkbox-blank "></a></div>
-                    <div class="col col-33" ng-if="bid.confirm == bid.userid"><a ng-click="selectBider(bid.userid)" class="button icon ion-android-checkbox "></a></div>
+                    <div class="col col-33" ng-if="bid.confirm == '0'"><a ng-click="selectBider(bid.userid)" class="button icon ion-android-checkbox-blank "></a></div>
+                    <div class="col col-33" ng-if="bid.confirm == '1'"><a ng-click="selectBider(bid.userid)" class="button icon ion-android-checkbox "></a></div>
                 </div>
             </div>
         </div>

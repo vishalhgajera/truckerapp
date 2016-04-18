@@ -1,0 +1,68 @@
+<ion-view view-title="Search">
+  <ion-content>
+    <form name="tripForm" ng-submit="searchTrip(tripForm)" novalidate>
+         <div class="item">
+             <h3 class="positive">Starting Location</h3></div>
+                
+                	<label class="item item-input item-select" ng-class="{'has-errors' : tripForm.Sstate.$invalid && (tripForm.Sstate.$dirty || tripForm.$submitted), 'no-errors' : tripForm.Sstate.$valid}" >
+                        <span class="input-label">
+                          State*:
+                        </span>
+                        <select ng-model="tripField.Sstate" name="Sstate" required>
+                        <option ng-selected="true" value="">Select States</option>
+                        <option ng-repeat="option in states track by $index" value="{{$index}}">{{option}}</option>
+                        </select>
+                     </label>
+                     
+                    <label class="item item-input item-select" ng-class="{'has-errors' : tripForm.Scity.$invalid && (tripForm.Scity.$dirty || tripForm.$submitted), 'no-errors' : tripForm.Scity.$valid}">
+                        <span class="input-label">
+                          City*:
+                        </span>
+                        <select ng-disabled="!tripField.Sstate" name="Scity" ng-model="tripField.Scity" required>
+                          <option ng-selected="true" value="">Select City</option>
+                        <option ng-repeat="option in cities[tripField.Sstate]" value="{{option}}">{{option}}</option>
+                        </select>
+                     </label>
+                     
+                    <label class="item item-input">
+                        <span class="input-label">
+                          location:
+                        </span>
+                       <input type="text" name="type" name="Slocation" ng-model="tripField.Slocation"  >
+                     </label>
+                
+                <!-- End Trip -->
+                 <div class="item"><h3 class="positive">End Location</h3></div>
+                	<label class="item item-input item-select" ng-class="{'has-errors' : tripForm.Estate.$invalid && (tripForm.Estate.$dirty || tripForm.$submitted), 'no-errors' : tripForm.Estate.$valid}" >
+                        <span class="input-label">
+                          State*:
+                        </span>
+                        <select ng-model="tripField.Estate" name="Estate" required>
+                         <option ng-selected="true" value="">Select States</option>
+                        <option ng-repeat="option in states track by $index" value="{{$index}}">{{option}}</option>
+                        </select>
+                     </label>
+                     
+                    <label class="item item-input item-select" ng-class="{'has-errors' : tripForm.Ecity.$invalid && (tripForm.Ecity.$dirty || tripForm.$submitted), 'no-errors' : tripForm.Ecity.$valid}">
+                        <span class="input-label">
+                          City*:
+                        </span>
+                        <select ng-disabled="!tripField.Estate" name="Ecity" ng-model="tripField.Ecity" required>
+                           <option ng-selected="true" value="">Select City</option>
+                        <option ng-repeat="option in cities[tripField.Estate]" value="{{option}}">{{option}}</option>
+                        </select>
+                     </label>
+                     
+                    <label class="item item-input ">
+                            <span class="input-label">
+                              Location:
+                            </span>
+                            <input type="text" name="type" name="Elocation" ng-model="tripField.Elocation" >
+                    </label>
+        <button class="button button-full button-positive" type="submit">
+                    Submit
+                </button>
+        
+        </form>
+  </ion-content>
+</ion-view>

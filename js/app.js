@@ -70,6 +70,14 @@ angular.module('starter', ['ionic', 'starter.controllers','ui.bootstrap.datetime
                 controller: "archivetripCtrl"
             }
         }
+    }).state("app.searchtrip", {
+        url: "/searchtrip",
+        views: {
+            menuContent: {
+                templateUrl: "templates/searchtrip.html",
+                controller: "searchtripCtrl"
+            }
+        }
     }).state("app.tripdetail", {
         url: "/trip/:Id",
         views: {

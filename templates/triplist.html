@@ -3,12 +3,14 @@
     <ion-nav-buttons side="right" >
         <a ng-if="usertype == 'agent'" class="button button-icon button-clear ion-android-add" ng-click="openModal()"> </a>
     </ion-nav-buttons>
- 
-    <ion-content>
-        <ion-refresher
-    pulling-text="Pull to refresh..."
-    on-refresh="doRefresh()">
-  </ion-refresher>
+    <!--<div class="bar bar-subheader">
+  <h2 class="title">Sub Header</h2>
+</div>-->
+    <ion-content class="has-subheader"> 
+        
+        
+        
+        <ion-refresher    pulling-text="Pull to refresh..."    on-refresh="doRefresh()">  </ion-refresher>
        
       <ion-list>
   <ion-item ng-repeat="trip in trips track by $index" class="item-icon-right" href="#/app/trip/{{trip.ID}}">
@@ -16,10 +18,9 @@
                 <p>Material type: <span ng-bind="trip.material"></span></p>
                 <p>Truck type: <span ng-bind="trip.Vtype"></span></p>
                 <p>Truck Capacity: <span ng-bind="trip.Vcapacity"></span></p>
-                <p>Reporting Time: <span ng-bind="trip.reportingDate | date:'dd/MM/yyyy, h:mm a'"></span></p>
-                
+                <p>Reporting Time: <span ng-bind="trip.reportingDate | date:'dd/MM/yyyy, h:mm a'"></span></p>   ``
                 <i class="icon ion-ios-arrow-forward"></i>
-    <ion-option-button ng-if="usertype == 'agent'" class="button-assertive" ng-click="deleteTrip(trip.ID,$index)">Delete</ion-option-button>
+    <ion-option-button ng-if="usertype == 'agent'" class="button-assertive" ng-click="deleteTrip(trip.ID,$index)">Delete</ion-option-button`>
   </ion-item>
 </ion-list>
 
