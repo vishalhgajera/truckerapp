@@ -179,27 +179,29 @@ angular.module('starter.controllers', [])
     http = $http;
     $scope.tripField = {Scity:'',Sstate:'',Slocation:'',Ecity:'',Estate:'',Elocation:''}
     $scope.searchby = 'both';
-   
-   
+    $scope.Estate = '';
+    $scope.Sstate - '';
    
     $scope.states = States;
     $scope.cities = Cities;
-
     
 
     
+
     
-    $scope.searchTrip = function (form) {
+    
+    $scope.searchTrip = function (form,searchby) {
         console.log(form)
+        console.log(searchby)
         if (!form.$valid) {
             return false;
         }		
 		console.log($scope.tripField);
-        $scope.Estate =  States[$scope.tripField.Estate];
-		$scope.Sstate =  States[$scope.tripField.Sstate];
+        $scope.Estate =  States[$scope.tripField.Estate] || '';
+		$scope.Sstate =  States[$scope.tripField.Sstate] || '';
         console.log($scope.tripField);
          $http.post("http://dev.dharmajivancottons.com/trucker/trip/searchtrip",{
-          searchtype:$scope.searchby,
+          searchtype:searchby,
           Sstate:$scope.Estate,
           Scity:$scope.tripField.Scity,
           Slocation:$scope.tripField.Slocation,

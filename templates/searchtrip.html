@@ -6,11 +6,11 @@
     </div>
         <select ng-model="searchby">
           <option value="both" selected>both location</option>
-          <option value="from" >Start location</option>
+          <option value="from">Start location</option>
           <option value="to">End location</option>
         </select>
       </label>
-    <form name="tripForm" ng-submit="searchTrip(tripForm)" novalidate>
+    <form name="tripForm" ng-submit="searchTrip(tripForm,searchby)" novalidate>
          <div class="item"  ng-if="searchby != 'to'"><h3 class="positive">Starting Location</h3></div>
                 	<label ng-if="searchby != 'to'" class="item item-input item-select" ng-class="{'has-errors' : tripForm.Sstate.$invalid && (tripForm.Sstate.$dirty || tripForm.$submitted), 'no-errors' : tripForm.Sstate.$valid}" >
                         <span class="input-label">
