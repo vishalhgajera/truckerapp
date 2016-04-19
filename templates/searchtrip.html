@@ -1,10 +1,18 @@
-<ion-view view-title="Search">
+<ion-view view-title="Search Trip">
   <ion-content>
+       <label class="item item-input item-select">
+    <div class="input-label">
+      Search By :
+    </div>
+        <select ng-model="searchby">
+          <option value="both" selected>both location</option>
+          <option value="from" >Start location</option>
+          <option value="to">End location</option>
+        </select>
+      </label>
     <form name="tripForm" ng-submit="searchTrip(tripForm)" novalidate>
-         <div class="item">
-             <h3 class="positive">Starting Location</h3></div>
-                
-                	<label class="item item-input item-select" ng-class="{'has-errors' : tripForm.Sstate.$invalid && (tripForm.Sstate.$dirty || tripForm.$submitted), 'no-errors' : tripForm.Sstate.$valid}" >
+         <div class="item"  ng-if="searchby != 'to'"><h3 class="positive">Starting Location</h3></div>
+                	<label ng-if="searchby != 'to'" class="item item-input item-select" ng-class="{'has-errors' : tripForm.Sstate.$invalid && (tripForm.Sstate.$dirty || tripForm.$submitted), 'no-errors' : tripForm.Sstate.$valid}" >
                         <span class="input-label">
                           State*:
                         </span>
@@ -14,7 +22,7 @@
                         </select>
                      </label>
                      
-                    <label class="item item-input item-select" ng-class="{'has-errors' : tripForm.Scity.$invalid && (tripForm.Scity.$dirty || tripForm.$submitted), 'no-errors' : tripForm.Scity.$valid}">
+                    <label  ng-if="searchby != 'to'" class="item item-input item-select" ng-class="{'has-errors' : tripForm.Scity.$invalid && (tripForm.Scity.$dirty || tripForm.$submitted), 'no-errors' : tripForm.Scity.$valid}">
                         <span class="input-label">
                           City*:
                         </span>
@@ -24,7 +32,7 @@
                         </select>
                      </label>
                      
-                    <label class="item item-input">
+                    <label ng-if="searchby != 'to'" class="item item-input">
                         <span class="input-label">
                           location:
                         </span>
@@ -32,18 +40,18 @@
                      </label>
                 
                 <!-- End Trip -->
-                 <div class="item"><h3 class="positive">End Location</h3></div>
-                	<label class="item item-input item-select" ng-class="{'has-errors' : tripForm.Estate.$invalid && (tripForm.Estate.$dirty || tripForm.$submitted), 'no-errors' : tripForm.Estate.$valid}" >
+                 <div class="item" ng-if="searchby != 'from'" ><h3 class="positive">End Location</h3></div>
+                	<label ng-if="searchby != 'from'"  class="item item-input item-select" ng-class="{'has-errors' : tripForm.Estate.$invalid && (tripForm.Estate.$dirty || tripForm.$submitted), 'no-errors' : tripForm.Estate.$valid}" >
                         <span class="input-label">
                           State*:
                         </span>
                         <select ng-model="tripField.Estate" name="Estate" required>
-                         <option ng-selected="true" value="">Select States</option>
+                         <option ng-selected="from" value="">Select States</option>
                         <option ng-repeat="option in states track by $index" value="{{$index}}">{{option}}</option>
                         </select>
                      </label>
                      
-                    <label class="item item-input item-select" ng-class="{'has-errors' : tripForm.Ecity.$invalid && (tripForm.Ecity.$dirty || tripForm.$submitted), 'no-errors' : tripForm.Ecity.$valid}">
+                    <label ng-if="searchby != 'from'"  class="item item-input item-select" ng-class="{'has-errors' : tripForm.Ecity.$invalid && (tripForm.Ecity.$dirty || tripForm.$submitted), 'no-errors' : tripForm.Ecity.$valid}">
                         <span class="input-label">
                           City*:
                         </span>
@@ -53,15 +61,13 @@
                         </select>
                      </label>
                      
-                    <label class="item item-input ">
+                    <label ng-if="searchby != 'from'"  class="item item-input ">
                             <span class="input-label">
                               Location:
                             </span>
                             <input type="text" name="type" name="Elocation" ng-model="tripField.Elocation" >
                     </label>
-        <button class="button button-full button-positive" type="submit">
-                    Submit
-                </button>
+        <button class="button button-full button-positive" ng-disabled="!tripForm.$valid" type="submit">Submit</button>
         
         </form>
   </ion-content>
