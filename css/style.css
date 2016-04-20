@@ -13,3 +13,6 @@
 .walkthrough-content { position: absolute; left: 0; top: 50%; transform: translateY(-50%);width: 100%; text-align: center;}
 .login-block {left: 0; top: 50%; position: absolute;transform: translateY(-50%);}
 .item.bg-assertive{ background-color:  #EF473A; color: #fff;}
+
+.signupform  .item-input,.signupform  .item-select {border-top: none; margin: 0px;}
+.signupform  .item-input.has-errors,.signupform  .item-select.has-errors{ border-bottom-color: #FF4C4C; }

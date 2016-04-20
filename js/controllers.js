@@ -39,9 +39,9 @@ angular.module('starter.controllers', [])
                 $rootScope.user = result.data.User;
                 window.localStorage.setItem("User",JSON.stringify($rootScope.user));
                 $rootScope.isLoggedIn = true;
-                 $state.go('app.trip', {
-                        clear: true
-                    });
+                ($rootScope.user.type == 'agent') ? rdpage = 'app.trip' : rdpage = 'app.searchtrip'
+                $state.go(rdpage, {clear: true});
+                 
             }else
             {
                 $ionicLoading.hide();
@@ -56,8 +56,35 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('SignupCtrl', function($scope) {
-    
+.controller('SignupCtrl', function($scope,$http,$rootScope,$ionicLoading) {
+    $scope.signupField = {}
+    scope = $scope;
+    $scope.signUp = function(signupForm){
+        console.log(signupForm);
+         if (!signupForm.$valid) {
+            return false;
+        }		
+        
+        $ionicLoading.show();
+        $http.post("http://dev.dharmajivancottons.com/trucker/authentic/signup",$scope.signupField).then(function(response) {
+             $ionicLoading.hide();
+            console.log(response);
+             /*if(response.data.success)
+             {
+                 $rootScope.trips = response.data.results;
+                 $state.go('app.trip');
+             }
+             else
+                 {
+                     $ionicPopup.alert({
+                        title: 'Record not found',
+                        template: 'Record not found please try with other cities',
+                    });
+                 } */
+      });
+        
+    }
+     
 })
 
 .controller('tripCtrl', function ($scope, $state, $ionicLoading, $rootScope, $ionicModal, $ionicPopup, $ionicScrollDelegate,$http,$filter) {
@@ -70,22 +97,47 @@ angular.module('starter.controllers', [])
    
     $scope.doRefresh = function () {
         
+        console.log($rootScope.user.type)
+        if ($rootScope.usertype == 'trucker')
+        {
+            console.log($rootScope.searchtripField);
+            $scope.Estate =  States[$rootScope.searchtripField.Estate] || '';
+            $scope.Sstate =  States[$rootScope.searchtripField.Sstate] || '';
+            console.log($scope.searchtripField);
+             $http.post("http://dev.dharmajivancottons.com/trucker/trip/searchtrip",{
+              searchtype:$rootScope.searchby,
+              Sstate:$scope.Sstate,
+              Scity:$rootScope.searchtripField.Scity,
+              Slocation:$rootScope.searchtripField.Slocation,
+              Estate:$scope.Estate,
+              Ecity:$rootScope.searchtripField.Ecity,
+              Elocation:$rootScope.searchtripField.Elocation
+             }) .then(function(response) {
+                 $scope.$broadcast('scroll.refreshComplete');
+                 $ionicLoading.hide();
+          });
         
-        $http.post("http://dev.dharmajivancottons.com/trucker/trip/triplist",{userid:$rootScope.user.cliendID}).then(function(result){
-           console.log(result.data.results);
-             $rootScope.trips = [];
-             if (result.data.results.length)
-            {
-                $rootScope.trips  = result.data.results;
-            }
-            
-            $scope.$broadcast('scroll.refreshComplete');
-             $ionicLoading.hide();
-        });
-    }
+        }else
+        {
+              $http.post("http://dev.dharmajivancottons.com/trucker/trip/triplist",{userid:$rootScope.user.cliendID}).then(function(result){
+               console.log(result.data.results);
+                 $rootScope.trips = [];
+                 if (result.data.results.length)
+                {
+                    $rootScope.trips  = result.data.results;
+                }
 
-     $ionicLoading.show();
-    $scope.doRefresh();
+                $scope.$broadcast('scroll.refreshComplete');
+                 $ionicLoading.hide();
+            });  
+        }
+    }
+    
+    if ($rootScope.user.type == 'agent')
+    {
+        $ionicLoading.show();
+        $scope.doRefresh();
+    }
     $scope.states = States;
     $scope.cities = Cities;
 
@@ -177,8 +229,8 @@ angular.module('starter.controllers', [])
     scope = $scope;
     root = $rootScope;
     http = $http;
-    $scope.tripField = {Scity:'',Sstate:'',Slocation:'',Ecity:'',Estate:'',Elocation:''}
-    $scope.searchby = 'both';
+    $rootScope.searchtripField = {Scity:'',Sstate:'',Slocation:'',Ecity:'',Estate:'',Elocation:''}
+    $rootScope.searchby = 'both';
     $scope.Estate = '';
     $scope.Sstate - '';
    
@@ -193,22 +245,25 @@ angular.module('starter.controllers', [])
     $scope.searchTrip = function (form,searchby) {
         console.log(form)
         console.log(searchby)
+        $rootScope.searchby =  searchby;
         if (!form.$valid) {
             return false;
         }		
-		console.log($scope.tripField);
-        $scope.Estate =  States[$scope.tripField.Estate] || '';
-		$scope.Sstate =  States[$scope.tripField.Sstate] || '';
-        console.log($scope.tripField);
+        $ionicLoading.show();
+		console.log($scope.searchtripField);
+        $scope.Estate =  States[$rootScope.searchtripField.Estate] || '';
+		$scope.Sstate =  States[$rootScope.searchtripField.Sstate] || '';
+        console.log($scope.searchtripField);
          $http.post("http://dev.dharmajivancottons.com/trucker/trip/searchtrip",{
-          searchtype:searchby,
-          Sstate:$scope.Estate,
-          Scity:$scope.tripField.Scity,
-          Slocation:$scope.tripField.Slocation,
+          searchtype:$rootScope.searchby,
+          Sstate:$scope.Sstate,
+          Scity:$rootScope.searchtripField.Scity,
+          Slocation:$rootScope.searchtripField.Slocation,
           Estate:$scope.Estate,
-          Ecity:$scope.tripField.Ecity,
-          Elocation:$scope.tripField.Elocation
+          Ecity:$rootScope.searchtripField.Ecity,
+          Elocation:$rootScope.searchtripField.Elocation
          }) .then(function(response) {
+             $ionicLoading.hide();
              if(response.data.success)
              {
                  $rootScope.trips = response.data.results;
@@ -220,9 +275,7 @@ angular.module('starter.controllers', [])
                         title: 'Record not found',
                         template: 'Record not found please try with other cities',
                     });
-                 }
-            
-             
+                 } 
       });
         
         

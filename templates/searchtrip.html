@@ -10,25 +10,25 @@
           <option value="to">End location</option>
         </select>
       </label>
-    <form name="tripForm" ng-submit="searchTrip(tripForm,searchby)" novalidate>
+    <form name="searchtripForm" ng-submit="searchTrip(searchtripForm,searchby)" novalidate>
          <div class="item"  ng-if="searchby != 'to'"><h3 class="positive">Starting Location</h3></div>
-                	<label ng-if="searchby != 'to'" class="item item-input item-select" ng-class="{'has-errors' : tripForm.Sstate.$invalid && (tripForm.Sstate.$dirty || tripForm.$submitted), 'no-errors' : tripForm.Sstate.$valid}" >
+                	<label ng-if="searchby != 'to'" class="item item-input item-select" ng-class="{'has-errors' : searchtripForm.Sstate.$invalid && (searchtripForm.Sstate.$dirty || searchtripForm.$submitted), 'no-errors' : searchtripForm.Sstate.$valid}" >
                         <span class="input-label">
                           State*:
                         </span>
-                        <select ng-model="tripField.Sstate" name="Sstate" required>
+                        <select ng-model="searchtripField.Sstate" name="Sstate" required>
                         <option ng-selected="true" value="">Select States</option>
                         <option ng-repeat="option in states track by $index" value="{{$index}}">{{option}}</option>
                         </select>
                      </label>
                      
-                    <label  ng-if="searchby != 'to'" class="item item-input item-select" ng-class="{'has-errors' : tripForm.Scity.$invalid && (tripForm.Scity.$dirty || tripForm.$submitted), 'no-errors' : tripForm.Scity.$valid}">
+                    <label  ng-if="searchby != 'to'" class="item item-input item-select" ng-class="{'has-errors' : searchtripForm.Scity.$invalid && (searchtripForm.Scity.$dirty || searchtripForm.$submitted), 'no-errors' : searchtripForm.Scity.$valid}">
                         <span class="input-label">
                           City*:
                         </span>
-                        <select ng-disabled="!tripField.Sstate" name="Scity" ng-model="tripField.Scity" required>
+                        <select ng-disabled="!searchtripField.Sstate" name="Scity" ng-model="searchtripField.Scity" required>
                           <option ng-selected="true" value="">Select City</option>
-                        <option ng-repeat="option in cities[tripField.Sstate]" value="{{option}}">{{option}}</option>
+                        <option ng-repeat="option in cities[searchtripField.Sstate]" value="{{option}}">{{option}}</option>
                         </select>
                      </label>
                      
@@ -36,28 +36,28 @@
                         <span class="input-label">
                           location:
                         </span>
-                       <input type="text" name="type" name="Slocation" ng-model="tripField.Slocation"  >
+                       <input type="text" name="type" name="Slocation" ng-model="searchtripField.Slocation"  >
                      </label>
                 
                 <!-- End Trip -->
                  <div class="item" ng-if="searchby != 'from'" ><h3 class="positive">End Location</h3></div>
-                	<label ng-if="searchby != 'from'"  class="item item-input item-select" ng-class="{'has-errors' : tripForm.Estate.$invalid && (tripForm.Estate.$dirty || tripForm.$submitted), 'no-errors' : tripForm.Estate.$valid}" >
+                	<label ng-if="searchby != 'from'"  class="item item-input item-select" ng-class="{'has-errors' : searchtripForm.Estate.$invalid && (searchtripForm.Estate.$dirty || searchtripForm.$submitted), 'no-errors' : searchtripForm.Estate.$valid}" >
                         <span class="input-label">
                           State*:
                         </span>
-                        <select ng-model="tripField.Estate" name="Estate" required>
+                        <select ng-model="searchtripField.Estate" name="Estate" required>
                          <option ng-selected="from" value="">Select States</option>
                         <option ng-repeat="option in states track by $index" value="{{$index}}">{{option}}</option>
                         </select>
                      </label>
                      
-                    <label ng-if="searchby != 'from'"  class="item item-input item-select" ng-class="{'has-errors' : tripForm.Ecity.$invalid && (tripForm.Ecity.$dirty || tripForm.$submitted), 'no-errors' : tripForm.Ecity.$valid}">
+                    <label ng-if="searchby != 'from'"  class="item item-input item-select" ng-class="{'has-errors' : searchtripForm.Ecity.$invalid && (searchtripForm.Ecity.$dirty || searchtripForm.$submitted), 'no-errors' : searchtripForm.Ecity.$valid}">
                         <span class="input-label">
                           City*:
                         </span>
-                        <select ng-disabled="!tripField.Estate" name="Ecity" ng-model="tripField.Ecity" required>
+                        <select ng-disabled="!searchtripField.Estate" name="Ecity" ng-model="searchtripField.Ecity" required>
                            <option ng-selected="true" value="">Select City</option>
-                        <option ng-repeat="option in cities[tripField.Estate]" value="{{option}}">{{option}}</option>
+                        <option ng-repeat="option in cities[searchtripField.Estate]" value="{{option}}">{{option}}</option>
                         </select>
                      </label>
                      
@@ -65,9 +65,9 @@
                             <span class="input-label">
                               Location:
                             </span>
-                            <input type="text" name="type" name="Elocation" ng-model="tripField.Elocation" >
+                            <input type="text" name="type" name="Elocation" ng-model="searchtripField.Elocation" >
                     </label>
-        <button class="button button-full button-positive" ng-disabled="!tripForm.$valid" type="submit">Submit</button>
+        <button class="button button-full button-positive" ng-disabled="!searchtripForm.$valid" type="submit">Submit</button>
         
         </form>
   </ion-content>

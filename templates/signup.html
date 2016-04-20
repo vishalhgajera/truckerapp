@@ -6,43 +6,57 @@
   <h1 class="title">Sign Up Form</h1>
   
 </ion-header-bar>
-    <ion-content  overflow-scroll="true" padding="false">
-        <form class="list">
+    <ion-content  overflow-scroll="true" padding="false" class="signupform">
+        <form class="list" name="signupForm" ng-submit="signUp(signupForm)" novalidate>
             <ion-list>
-                <label class="item item-input">
-                    <span class="input-label">First Name</span>
-                    <input placeholder="" type="text">
-                </label>
-                <label class="item item-input">
-                    <span class="input-label">Last Name</span>
-                    <input placeholder="" type="text">
-                </label>
-                <label name="gender" class="item item-select">
-                    <span class="input-label">Gender</span>
-                    <select>
-                        <option>male</option>
-                        <option>female</option>
+                <label name="type" class="item item-select" ng-class="{'has-errors':signupForm.type.$invalid && (signupForm.type.$dirty || signupForm.$submitted), 'no-errors': singupForm.type.$valid}">
+                    <span class="input-label">What you are :</span>
+                    <select ng-model="signupField.type" name="type" required>
+                         <option value="">Select</option>
+                        <option value="trucker">Trucker</option>
+                        <option value="agent">Truck Agent</option>
                     </select>
                 </label>
-                <label class="item item-input">
-                    <span class="input-label">Mobile Number</span>
-                    <input placeholder="" type="text">
+                <label class="item item-input" ng-class="{'has-errors' : signupForm.fname.$invalid && (signupForm.fname.$dirty || signupForm.$submitted), 'no-errors' : signupForm.fname.$valid}">
+                    <span class="input-label">First Name :</span>
+                    <input placeholder="" type="text" ng-model="signupField.fname" name="fname" required>
                 </label>
-                <label class="item item-input">
-                    <span class="input-label">Date of Birth</span>
-                    <input placeholder="" type="text">
+                <label class="item item-input" ng-class="{'has-errors' : signupForm.lname.$invalid && (signupForm.lname.$dirty || signupForm.$submitted), 'no-errors': singupForm.lname.$valid}">
+                    <span class="input-label">Last Name :</span>
+                    <input placeholder="" type="text" ng-model="signupField.lname" name="lname" required>
                 </label>
-                <label class="item item-input">
-                    <span class="input-label">Email Id</span>
-                    <input placeholder="" type="email">
+                <label name="gender" class="item item-select" ng-class="{'has-errors':signupForm.gender.$invalid && (signupForm.gender.$dirty || signupForm.$submitted), 'no-errors': singupForm.gender.$valid}">
+                    <span class="input-label">Gender :</span>
+                    <select ng-model="signupField.gender" name="gender" required>
+                         <option value="">Select</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
                 </label>
-                <label class="item item-input">
-                    <span class="input-label">Company Name</span>
-                    <input placeholder="" type="text">
+                <label class="item item-input" ng-class="{'has-errors':signupForm.mobile.$invalid && (signupForm.mobile.$dirty || signupForm.$submitted), 'no-errors': singupForm.mobile.$valid}">
+                    <span class="input-label">Mobile Number :</span>
+                    <input placeholder="" type="text" ng-model="signupField.mobile" name="mobile" required>
                 </label>
-                <label name="companytype" class="item item-select">
-                    <span class="input-label">Type of Company</span>
-                    <select>
+                
+                <label class="item item-input" ng-class="{'has-errors':signupForm.email.$invalid && (signupForm.email.$dirty || signupForm.$submitted), 'no-errors': singupForm.email.$valid}">
+                    <span class="input-label">Email Id :</span>
+                    <input placeholder="" type="email" ng-model="signupField.email" name="email" required>
+                </label>
+                <label class="item item-input" ng-class="{'has-errors':signupForm.company.$invalid && (signupForm.company.$dirty || signupForm.$submitted), 'no-errors': singupForm.company.$valid}">
+                    <span class="input-label">Company Name :</span>
+                    <input placeholder="" type="text" ng-model="signupField.company" name="company" required>
+                </label>
+                <label class="item item-input" ng-class="{'has-errors':signupForm.password.$invalid && (signupForm.password.$dirty || signupForm.$submitted), 'no-errors': singupForm.password.$valid}">
+                    <span class="input-label">Password :</span>
+                    <input placeholder="" type="password" ng-model="signupField.password" name="password" required>
+                </label>
+                <label class="item item-input" ng-class="{'has-errors':(signupForm.cpassword.$invalid || signupField.password != signupField.cpassword) && (signupForm.cpassword.$dirty || signupForm.$submitted) , 'no-errors': singupForm.cpassword.$valid}">
+                    <span class="input-label">Confirm Password :</span>
+                    <input placeholder="" type="password" ng-model="signupField.cpassword" name="cpassword" required>
+                </label>
+                <label name="companytype" class="item item-select" ng-class="{'has-errors':signupForm.companytype.$invalid && (signupForm.companytype.$dirty || signupForm.$submitted), 'no-errors': singupForm.companytype.$valid}">
+                    <span class="input-label">Type of Company :</span>
+                    <select ng-model="signupField.companytype" name="companytype">
                         <option>Propiertor</option>
                         <option>Partnership</option>
                         <option>LLP</option>
@@ -50,48 +64,44 @@
                         <option>Others</option>
                     </select>
                 </label>
-                <label class="item item-input">
-                    <span class="input-label">Pan Card</span>
-                    <input placeholder="" type="text">
+                <label class="item item-input" ng-class="{'has-errors':signupForm.birthday.$invalid && (signupForm.birthday.$dirty || signupForm.$submitted), 'no-errors': singupForm.birthday.$valid}">
+                    <span class="input-label">Date of Birth :</span>
+                    <input placeholder="" type="text" ng-model="signupField.birthday" name="birthday" >
                 </label>
-                <label class="item item-input">
-                    <span class="input-label">Service Tax No.</span>
-                    <input placeholder="" type="text">
+                <label class="item item-input" ng-class="{'has-errors':signupForm.pancard.$invalid && (signupForm.pancard.$dirty || signupForm.$submitted), 'no-errors': singupForm.pancard.$valid}">
+                    <span class="input-label">Pan Card :</span>
+                    <input placeholder="" type="text" ng-model="signupField.pancard" name="pancard">
                 </label>
-                <label class="item item-input">
-                    <span class="input-label">Address</span>
-                    <input placeholder="" type="text">
+                <label class="item item-input" ng-class="{'has-errors':signupForm.stax.$invalid && (signupForm.stax.$dirty || signupForm.$submitted), 'no-errors': singupForm.stax.$valid}">
+                    <span class="input-label">Service Tax No. :</span>
+                    <input placeholder="" type="text" ng-model="signupField.stax" name="stax">
                 </label>
-                <label class="item item-input">
-                    <span class="input-label">Area</span>
-                    <input placeholder="" type="text">
+                <label class="item item-input" ng-class="{'has-errors':signupForm.address.$invalid && (signupForm.address.$dirty || signupForm.$submitted), 'no-errors': singupForm.address.$valid}">
+                    <span class="input-label">Address :</span>
+                    <input placeholder="" type="text" ng-model="signupField.address" name="address">
                 </label>
-                <label class="item item-input">
-                    <span class="input-label">City</span>
-                    <input placeholder="" type="text">
+                <label class="item item-input" ng-class="{'has-errors':signupForm.area.$invalid && (signupForm.area.$dirty || signupForm.$submitted), 'no-errors': singupForm.area.$valid}">
+                    <span class="input-label">Area :</span>
+                    <input placeholder="" type="text" ng-model="signupField.area" name="area">
                 </label>
-                <label class="item item-input">
-                    <span class="input-label">Pincode</span>
-                    <input placeholder="" type="text">
+                <label class="item item-input" ng-class="{'has-errors':signupForm.city.$invalid && (signupForm.city.$dirty || signupForm.$submitted), 'no-errors': singupForm.city.$valid}">
+                    <span class="input-label">City :</span>
+                    <input placeholder="" type="text" ng-model="signupField.city" name="city">
                 </label>
-                <label class="item item-input">
-                    <span class="input-label">State</span>
-                    <input placeholder="" type="text">
+                <label class="item item-input" ng-class="{'has-errors':signupForm.pincode.$invalid && (signupForm.pincode.$dirty || signupForm.$submitted), 'no-errors': singupForm.pincode.$valid}">
+                    <span class="input-label">Pincode :</span>
+                    <input placeholder="" type="text" ng-model="signupField.pincode" name="pincode">
                 </label>
-                <label class="item item-input">
-                    <span class="input-label">Turnover</span>
-                    <input placeholder="" type="text">
+                <label class="item item-input" ng-class="{'has-errors':signupForm.state.$invalid && (signupForm.state.$dirty || signupForm.$submitted), 'no-errors': singupForm.state.$valid}">
+                    <span class="input-label">State :</span>
+                    <input placeholder="" type="text" ng-model="signupField.state" name="state">
                 </label>
-                <label class="item item-input">
-                    <span class="input-label">Password</span>
-                    <input placeholder="" type="password">
-                </label>
-                <label class="item item-input">
-                    <span class="input-label">Confirm Password</span>
-                    <input placeholder="" type="password">
+                <label class="item item-input" ng-class="{'has-errors':signupForm.turnover.$invalid && (signupForm.turnover.$dirty || signupForm.$submitted), 'no-errors': singupForm.turnover.$valid}">
+                    <span class="input-label">Turnover :</span>
+                    <input placeholder="" type="text" ng-model="signupField.turnover" name="turnover">
                 </label>
             </ion-list>
-            <button class="button button-royal button-block ">Sign up</button>
+            <button class="button button-royal button-block " >Sign up</button>
         </form>
         
     </ion-content>
